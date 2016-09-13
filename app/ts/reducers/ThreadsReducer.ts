@@ -76,13 +76,11 @@ export const ThreadsReducer =
       const thread = (<ThreadActions.AddMessageAction>action).thread;
       const message = (<ThreadActions.AddMessageAction>action).message;
 
-      // special case: if the message being added is in the current thread, then
-      // mark it as read
-      const isRead = message.thread.id === state.currentThreadId ?
-                      true : message.isRead;
+      // special case: if the message being added is in the current thread, then mark it as read
+      const isRead = message.thread.id === state.currentThreadId ? true : message.isRead;
       const newMessage = Object.assign({}, message, { isRead: isRead });
 
-      // grab the old thraed from entities
+      // grab the old thread from entities
       const oldThread = state.entities[thread.id];
 
       // create a new thread which has our newMessage
@@ -102,22 +100,22 @@ export const ThreadsReducer =
     // Select a particular thread in the UI
     case ThreadActions.SELECT_THREAD: {
       const thread = (<ThreadActions.SelectThreadAction>action).thread;
-      const oldThread = state.entities[thread.id];
+      const selectedThread = state.entities[thread.id];
 
       // mark the messages as read
-      const newMessages = oldThread.messages.map(
+      const readMessages = selectedThread.messages.map(
         (message) => Object.assign({}, message, { isRead: true }));
 
       // give them to this new thread
-      const newThread = Object.assign({}, oldThread, {
-        messages: newMessages
+      const updatedThread = Object.assign({}, selectedThread, {
+        messages: readMessages
       });
 
       return {
         ids: state.ids,
         currentThreadId: thread.id,
         entities: Object.assign({}, state.entities, {
-          [thread.id]: newThread
+          [thread.id]: updatedThread
         })
       };
     }
@@ -129,38 +127,31 @@ export const ThreadsReducer =
 
 export const getThreadsState = (state): ThreadsState => state.threads;
 
-export const getThreadsEntities = createSelector(
-  getThreadsState,
-  ( state: ThreadsState ) => state.entities );
+export const getThreadsEntities = createSelector( getThreadsState, (state: ThreadsState) => state.entities );
 
 export const getAllThreads = createSelector(
-  getThreadsEntities,
-  ( entities: ThreadsEntities ) => Object.keys(entities)
-                        .map((threadId) => entities[threadId]));
+  getThreadsEntities, (entities: ThreadsEntities) => Object.keys(entities).map( (threadId) => entities[threadId] ));
 
 export const getUnreadMessagesCount = createSelector(
   getAllThreads,
-  ( threads: Thread[] ) => threads.reduce(
-      (unreadCount: number, thread: Thread) => {
-        thread.messages.forEach((message: Message) => {
-          if (!message.isRead) {
-            ++unreadCount;
-          }
-        });
-        return unreadCount;
-      },
-      0));
+  (threads: Thread[] ) => threads.reduce(
+    (unreadCount: number, thread: Thread) => {
+      console.log(thread.messages);
+      thread.messages.map((message: Message) => {
+        if (!message.isRead) {
+          ++unreadCount;
+        }
+      });
+      return unreadCount;
+    },
+    0));
 
 // This selector emits the current thread
 export const getCurrentThread = createSelector(
   getThreadsEntities,
   getThreadsState,
-  ( entities: ThreadsEntities, state: ThreadsState ) =>
-    entities[state.currentThreadId] );
+  (entities: ThreadsEntities, state: ThreadsState) => entities[state.currentThreadId]);
 
-export const getAllMessages = createSelector(
-  getAllThreads,
-  ( threads: Thread[] ) =>
-    threads.reduce( // gather all messages
-      (messages, thread) => [...messages, ...thread.messages],
-      []).sort((m1, m2) => m1.sentAt - m2.sentAt)); // sort them by time
+export const getAllMessages = createSelector(getAllThreads, (threads: Thread[]) =>
+    threads.reduce( (messages, thread) => [...messages, ...thread.messages], []) // gather all messages
+        .sort((m1, m2) => m1.sentAt - m2.sentAt)); // sort them by time
