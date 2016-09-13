@@ -10,7 +10,7 @@
 
 import {
   Reducer,
-  combineReducers 
+  combineReducers
 } from 'redux';
 import {
   UsersState,

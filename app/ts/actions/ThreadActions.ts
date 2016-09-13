@@ -12,7 +12,6 @@ import {
 } from 'redux';
 import { uuid } from '../util/uuid';
 import {
-  User,
   Message,
   Thread
 } from '../models';

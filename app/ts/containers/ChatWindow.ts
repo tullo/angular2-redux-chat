@@ -25,7 +25,6 @@ import {
   getCurrentThread,
   getCurrentUser
 } from '../reducers';
-import ChatMessage from '../components/ChatMessage';
 
 /**
  * ChatWindow is the container which handles the current chat

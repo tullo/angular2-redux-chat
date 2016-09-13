@@ -23,7 +23,6 @@ import {
   getCurrentThread,
   getAllThreads
 } from '../reducers';
-import ChatThread from '../components/ChatThread';
 
 /**
  * ChatThreads shows the list of current threads
