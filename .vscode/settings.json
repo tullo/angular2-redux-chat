@@ -1,0 +1,6 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+    // Using Newer TypeScript Versions
+    // https://code.visualstudio.com/docs/languages/typescript#_using-newer-typescript-versions
+    "typescript.tsdk": "node_modules/typescript/lib"
+}

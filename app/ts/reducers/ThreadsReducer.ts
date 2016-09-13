@@ -136,7 +136,6 @@ export const getUnreadMessagesCount = createSelector(
   getAllThreads,
   (threads: Thread[] ) => threads.reduce(
     (unreadCount: number, thread: Thread) => {
-      console.log(thread.messages);
       thread.messages.map((message: Message) => {
         if (!message.isRead) {
           ++unreadCount;
