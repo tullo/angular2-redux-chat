@@ -29,7 +29,7 @@ import { Message } from '../models';
       <img src="{{message.author.avatarSrc}}">
     </div>
 
-    <div class="messages"
+    <div class="msg"
       [ngClass]="{'msg-sent': !incoming, 'msg-receive': incoming}">
       <p>{{message.text}}</p>
       <p class="time">{{message.sender}} • {{message.sentAt | fromNow}}</p>
