@@ -27,7 +27,7 @@
     "core-js": "2.4.1",
     "es6-shim": "0.35.1",
     "immutable": "3.8.1",
-    "lodash": "3.10.1",
+    "lodash": ">=4.17.19",
     "moment": "2.27.0",
     "normalizr": "1.4.1",
     "optimist": "0.6.1",
@@ -61,7 +61,7 @@
     "karma-spec-reporter": "0.0.20",
     "karma-webpack": "1.7.0",
     "live-server": "0.7.1",
-    "node-sass": "3.4.2",
+    "node-sass": ">=4.13.1",
     "on-build-webpack": "0.1.0",
     "phantomjs": "1.9.18",
     "phantomjs-polyfill": "0.0.1",
@@ -77,7 +77,7 @@
     "url-loader": "0.5.6",
     "val-loader": "0.5.0",
     "webpack": "1.12.9",
-    "webpack-dev-server": "1.12.1",
+    "webpack-dev-server": ">=3.1.11",
     "webpack-notifier": "1.2.1",
     "webpack-reload-plugin": "0.1.2"
   }
